@@ -4,7 +4,7 @@ title = 'Mr.Quantum_1915'
 theme = 'custom-theme'
 
 [params]
-    description = "Full Stack Developer | Open Source Enthusiast"
+    description = "Quantum"
 
 [menus]
   [[menus.main]]
@@ -23,3 +23,7 @@ theme = 'custom-theme'
     name = 'Contact'
     url = '/contact'
     weight = 40
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
