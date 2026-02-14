@@ -7,8 +7,17 @@
     <title>{{ .Title }}</title>
 
     <!-- Theme Toggle Script -->
-    {{ $themeJs := resources.Get "js/theme-toggle.js" | resources.Minify }}
-    <script>{ { $themeJs.Content | safeJS } }</script>
+    {{ $themeJs := resources.Get "js/theme-toggle.js" }}
+    {{ if $themeJs }}
+    {{ $themeJs = $themeJs | resources.Minify }}
+    <script>{{ $themeJs.Content | safeJS }}</script>
+    {{ end }}
+
+    {{ $mobileMenuJs := resources.Get "js/mobile-menu.js" }}
+    {{ if $mobileMenuJs }}
+    {{ $mobileMenuJs = $mobileMenuJs | resources.Minify }}
+    <script>{{ $mobileMenuJs.Content | safeJS }}</script>
+    {{ end }}
 
     {{ $style := resources.Get "css/style.css" }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
@@ -22,19 +31,33 @@
 <body>
     <header>
         <div class="container">
-            <a href="{{ .Site.Home.RelPermalink }}" class="logo">
-                {{ .Site.Title }}
-            </a>
-            <nav>
-                {{ range .Site.Menus.main }}
-                <a href="{{ .URL }}">{{ .Name }}</a>
-                {{ end }}
-                <button id="theme-toggle" aria-label="Toggle Theme">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
+            <nav class="navbar">
+                <a href="{{ .Site.Home.RelPermalink }}" class="logo">
+                    {{ .Site.Title }}
+                </a>
+
+                <ul class="nav-menu">
+                    {{ range .Site.Menus.main }}
+                    <li class="nav-item">
+                        <a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>
+                    </li>
+                    {{ end }}
+                    <li class="nav-item">
+                        <button id="theme-toggle" aria-label="Toggle Theme">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
             </nav>
         </div>
     </header>

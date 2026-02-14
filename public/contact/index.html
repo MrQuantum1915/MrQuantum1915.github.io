@@ -8,37 +8,68 @@
 
     
     
-    <script>{ { $themeJs.Content | safeJS } }</script>
+    
+    
+    <script>(function(){const n=()=>{const e=localStorage.getItem("theme");return e?e:window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"},e=e=>{document.documentElement.setAttribute("data-theme",e),localStorage.setItem("theme",e)},s=n();e(s);const t=()=>{const t=document.getElementById("theme-toggle");if(t){const n=t.cloneNode(!0);t.parentNode.replaceChild(n,t),n.addEventListener("click",()=>{const t=document.documentElement.getAttribute("data-theme"),n=t==="dark"?"light":"dark";e(n)})}};document.readyState==="loading"?document.addEventListener("DOMContentLoaded",t):t()})()</script>
+    
+
+    
+    
+    
+    <script>document.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".hamburger"),t=document.querySelector(".nav-menu");e&&t&&(e.addEventListener("click",()=>{e.classList.toggle("active"),t.classList.toggle("active")}),document.querySelectorAll(".nav-menu a").forEach(n=>{n.addEventListener("click",()=>{e.classList.remove("active"),t.classList.remove("active")})}))})</script>
+    
 
     
     <link rel="stylesheet" href="/css/style.css">
 
     
     
+    <link rel="icon" href="/logo.png" type="image/png">
+    
 </head>
 
 <body>
     <header>
         <div class="container">
-            <a href="/" class="logo">
-                Mr.Quantum_1915
-            </a>
-            <nav>
-                
-                <a href="/">Home</a>
+            <nav class="navbar">
+                <a href="/" class="logo">
+                    Mr.Quantum_1915
+                </a>
+
+                <ul class="nav-menu">
                     
-                <a href="/projects">Projects</a>
-                
-                <a href="/blogs">Blogs</a>
-                
-                <a href="/contact">Contact</a>
-                
-                <button id="theme-toggle" aria-label="Toggle Theme">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Home</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="/projects" class="nav-link">Projects</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="/blogs" class="nav-link">Blogs</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="/contact" class="nav-link">Contact</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <button id="theme-toggle" aria-label="Toggle Theme">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
             </nav>
         </div>
     </header>

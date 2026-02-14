@@ -1,7 +1,7 @@
 {{ define "main" }}
 <section class="hero">
     <h1 class="fade-in">
-        Hi, I'm <em style="color: var(--accent-primary)">MrQuantum1915</em>
+        Hi, I'm <span style="color: var(--accent-primary); font-family: var(--font-logo);">{{ .Site.Title }}</span>
         <br>
         <span style="font-size: 0.6em; display: block; margin-top: 0.5rem; opacity: 0.9;">Building Digital
             Experiences</span>
@@ -22,8 +22,7 @@
 
 <section id="skills" class="fade-in delay-2" style="margin-bottom: 5rem;">
     <h2 style="text-align: center; margin-bottom: 2rem;">Tech Stack</h2>
-    <div class="grid"
-        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 2rem; text-align: center;">
+    <div class="grid skills-grid">
         <div class="skill-item">
             <strong>React/Next.js</strong>
         </div>
@@ -33,61 +32,41 @@
         <div class="skill-item">
             <strong>Tailwind CSS</strong>
         </div>
-        <div class="skill-item">
-            <strong>Rust</strong>
-        </div>
-        <div class="skill-item">
-            <strong>Docker</strong>
-        </div>
-        <div class="skill-item">
-            <strong>AWS</strong>
-        </div>
+
     </div>
 </section>
 
 <section id="projects" class="fade-in delay-2" style="margin-bottom: 5rem;">
     <h2 style="text-align: center; margin-bottom: 2rem;">Featured Projects</h2>
-    <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
-        <article
-            style="padding: 2rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg);">
+    <div class="grid projects-grid">
+        <article class="project-card">
             <h3>Hostel Hub</h3>
             <p>A centralized platform for hostel management, complaints, and communication.</p>
-            <div style="margin-top: 1rem;">
-                <span
-                    style="font-size: 0.8rem; background: var(--border-color); padding: 0.2rem 0.5rem; border-radius: 4px;">React</span>
-                <span
-                    style="font-size: 0.8rem; background: var(--border-color); padding: 0.2rem 0.5rem; border-radius: 4px;">Node.js</span>
+            <div class="project-tags">
+                <span class="tag">React</span>
+                <span class="tag">Node.js</span>
             </div>
-            <a href="#"
-                style="display: inline-block; margin-top: 1rem; color: var(--accent-primary); font-weight: 600;">View
+            <a href="#" class="project-link">View
                 Project &rarr;</a>
         </article>
-        <article
-            style="padding: 2rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg);">
+        <article class="project-card">
             <h3>Portfolio V1</h3>
             <p>My previous portfolio site built with pure HTML/CSS and JS.</p>
-            <div style="margin-top: 1rem;">
-                <span
-                    style="font-size: 0.8rem; background: var(--border-color); padding: 0.2rem 0.5rem; border-radius: 4px;">HTML</span>
-                <span
-                    style="font-size: 0.8rem; background: var(--border-color); padding: 0.2rem 0.5rem; border-radius: 4px;">CSS</span>
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
             </div>
-            <a href="#"
-                style="display: inline-block; margin-top: 1rem; color: var(--accent-primary); font-weight: 600;">View
+            <a href="#" class="project-link">View
                 Project &rarr;</a>
         </article>
-        <article
-            style="padding: 2rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg);">
+        <article class="project-card">
             <h3>Quantum CLI</h3>
             <p>A command-line tool for developer productivity and automation.</p>
-            <div style="margin-top: 1rem;">
-                <span
-                    style="font-size: 0.8rem; background: var(--border-color); padding: 0.2rem 0.5rem; border-radius: 4px;">Rust</span>
-                <span
-                    style="font-size: 0.8rem; background: var(--border-color); padding: 0.2rem 0.5rem; border-radius: 4px;">CLI</span>
+            <div class="project-tags">
+                <span class="tag">Rust</span>
+                <span class="tag">CLI</span>
             </div>
-            <a href="#"
-                style="display: inline-block; margin-top: 1rem; color: var(--accent-primary); font-weight: 600;">View
+            <a href="#" class="project-link">View
                 Project &rarr;</a>
         </article>
     </div>

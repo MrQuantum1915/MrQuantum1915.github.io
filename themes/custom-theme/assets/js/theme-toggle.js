@@ -13,16 +13,14 @@
         localStorage.setItem('theme', theme);
     };
 
-    // Initialize theme immediately
     const initialTheme = getPreferredTheme();
     setTheme(initialTheme);
 
-    // Event listener for toggle button
-    // Using event delegation or waiting for DOMContentLoaded
+    // fxn to attach event listener
     const initToggle = () => {
         const toggleBtn = document.getElementById('theme-toggle');
         if (toggleBtn) {
-            // Remove existing listeners to avoid duplicates if re-run
+
             const newBtn = toggleBtn.cloneNode(true);
             toggleBtn.parentNode.replaceChild(newBtn, toggleBtn);
 
@@ -31,11 +29,9 @@
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                 setTheme(newTheme);
             });
-        } else {
-            // If button not found, retry in a moment (fallback)
-            setTimeout(initToggle, 100);
         }
     };
+
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initToggle);
