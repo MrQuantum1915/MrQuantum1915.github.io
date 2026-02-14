@@ -10,7 +10,7 @@
     {{ $themeJs := resources.Get "js/theme-toggle.js" }}
     {{ if $themeJs }}
     {{ $themeJs = $themeJs | resources.Minify }}
-    <script>{ { $themeJs.Content | safeJS } }</script>
+    <script>{{ $themeJs.Content | safeJS }}</script>
     {{ end }}
 
     {{ $mobileMenuJs := resources.Get "js/mobile-menu.js" }}

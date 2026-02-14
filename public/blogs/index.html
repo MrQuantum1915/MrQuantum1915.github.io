@@ -10,7 +10,7 @@
     
     
     
-    <script>{ { $themeJs.Content | safeJS } }</script>
+    <script>(function(){const n=()=>{const e=localStorage.getItem("theme");return e?e:window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"},e=e=>{document.documentElement.setAttribute("data-theme",e),localStorage.setItem("theme",e)},s=n();e(s);const t=()=>{const t=document.getElementById("theme-toggle");if(t){const n=t.cloneNode(!0);t.parentNode.replaceChild(n,t),n.addEventListener("click",()=>{const t=document.documentElement.getAttribute("data-theme"),n=t==="dark"?"light":"dark";e(n)})}};document.readyState==="loading"?document.addEventListener("DOMContentLoaded",t):t()})()</script>
     
 
     
