@@ -1,0 +1,90 @@
+{{ define "main" }}
+<section class="fade-in">
+    <h1 style="text-align: center; margin-bottom: 1rem;">Get in Touch</h1>
+    <p style="text-align: center; max-width: 600px; margin: 0 auto 3rem auto;">
+        I’m always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+    </p>
+
+    <div class="grid"
+        style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+
+
+        <a href="mailto:darshanpatelgdh@gmail.com" class="contact-card" style="text-decoration: none;">
+            <div class="card-content">
+                <h3 style="margin-bottom: 0.5rem; color: var(--accent-primary);">Email</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">darshanpatelgdh@gmail.com</p>
+                <span class="btn-text">Send Mail &rarr;</span>
+            </div>
+        </a>
+
+
+        <a href="https://linkedin.com/in/darshan-patel-1713062a4" target="_blank" class="contact-card"
+            style="text-decoration: none;">
+            <div class="card-content">
+                <h3 style="margin-bottom: 0.5rem; color: var(--accent-primary);">LinkedIn</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">connect</p>
+                <span class="btn-text">View Profile &rarr;</span>
+            </div>
+        </a>
+
+ 
+        <a href="https://stackexchange.com/users/31305103/darshan-patel?tab=accounts" target="_blank"
+            class="contact-card" style="text-decoration: none;">
+            <div class="card-content">
+                <h3 style="margin-bottom: 0.5rem; color: var(--accent-primary);">StackExchange</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">nerd?</p>
+                <span class="btn-text">Visit Profile &rarr;</span>
+            </div>
+        </a>
+
+
+        <a href="https://x.com/PatelDarsh92081" target="_blank" class="contact-card" style="text-decoration: none;">
+            <div class="card-content">
+                <h3 style="margin-bottom: 0.5rem; color: var(--accent-primary);">X / Twitter</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">great!</p>
+                <span class="btn-text">Follow &rarr;</span>
+            </div>
+        </a>
+
+ 
+        <a href="https://instagram.com/mrquantum_1915" target="_blank" class="contact-card"
+            style="text-decoration: none;">
+            <div class="card-content">
+                <h3 style="margin-bottom: 0.5rem; color: var(--accent-primary);">Instagram</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">okay</p>
+                <span class="btn-text">Follow &rarr;</span>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<style>
+    .contact-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        padding: 2rem;
+        border-radius: 12px;
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        display: block;
+    }
+
+    .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        border-color: var(--accent-primary);
+    }
+
+    .btn-text {
+        color: var(--text-primary);
+        font-weight: 600;
+        margin-top: 1rem;
+        display: inline-block;
+        font-size: 0.9rem;
+    }
+
+    .contact-card:hover .btn-text {
+        color: var(--accent-primary);
+    }
+</style>
+{{ end }}

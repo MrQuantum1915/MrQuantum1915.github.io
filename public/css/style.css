@@ -41,6 +41,11 @@
     padding: 0;
 }
 
+html {
+    font-size: 110%;
+}
+
+
 body {
     background-color: var(--bg-color);
     color: var(--text-primary);
@@ -100,13 +105,30 @@ a {
     padding: 0 2rem;
 }
 
+
 header {
     padding: 1rem 0;
-    position: relative;
-    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+}
+
+header.scrolled {
+    padding: 0.8rem 0;
+    background-color: var(--bg-color);
     border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] header.scrolled {
     background-color: var(--bg-color);
 }
+
 
 .navbar {
     display: flex;
@@ -481,7 +503,7 @@ footer {
     }
 
     h1 {
- 
+
         font-size: clamp(2.5rem, 10vw, 3.5rem);
     }
 

@@ -62,15 +62,29 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" style="margin-top: 80px;">
         {{ block "main" . }}{{ end }}
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
+            <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved :)</p>
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('header');
+            const scrollThreshold = 50;
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > scrollThreshold) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
