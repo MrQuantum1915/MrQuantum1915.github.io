@@ -2,8 +2,8 @@
 
 ## Add new Blog:
 1. Create folder: `content/blogs/my-blog-name/`
-2. Create content/blogs/my-blog-name/index.md with:
-```toml
+2. Create `content/blogs/my-blog-name/index.md with`:
+```markdown
 ---
 title = "Blog Title"
 date = 2026-03-21
