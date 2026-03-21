@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <title>404 - Page Not Found | {{ .Site.Title }}</title>
 
     <!-- Theme Toggle Script -->
     {{ $themeJs := resources.Get "js/theme-toggle.js" }}
@@ -13,31 +13,15 @@
     <script>{{ $themeJs.Content | safeJS }}</script>
     {{ end }}
 
-    {{ $mobileMenuJs := resources.Get "js/mobile-menu.js" }}
-    {{ if $mobileMenuJs }}
-    {{ $mobileMenuJs = $mobileMenuJs | resources.Minify }}
-    <script>{{ $mobileMenuJs.Content | safeJS }}</script>
-    {{ end }}
-
     {{ $style := resources.Get "css/style.css" }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 
     {{ $syntax := resources.Get "css/syntax-dark.css" }}
     <link rel="stylesheet" href="{{ $syntax.RelPermalink }}">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-
     {{ $favicon := resources.Get "logo.png" }}
     {{ if $favicon }}
     <link rel="icon" href="{{ $favicon.RelPermalink }}" type="image/png">
-    {{ end }}
-
-    {{ $copyCodeJs := resources.Get "js/code-copy.js" }}
-    {{ if $copyCodeJs }}
-    {{ $copyCodeJs = $copyCodeJs | resources.Minify }}
-    <script defer>{{ $copyCodeJs.Content | safeJS }}</script>
     {{ end }}
 </head>
 
@@ -45,8 +29,8 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="{{ .Site.Home.RelPermalink }}" class="brand-name">
-                    Mr.Quantum_1915
+                <a href="{{ .Site.Home.RelPermalink }}" class="logo">
+                    {{ .Site.Title }}
                 </a>
 
                 <ul class="nav-menu">
@@ -76,7 +60,36 @@
     </header>
 
     <main class="container" style="margin-top: 80px;">
-        {{ block "main" . }}{{ end }}
+        <section class="error-404-portal">
+            <div class="error-404-cosmic">
+                <div class="error-404-code">404</div>
+                <div class="error-404-divider"></div>
+                <h1 class="error-404-title">Quantum State Collapsed</h1>
+                <p class="error-404-subtitle">The page you're searching for exists in a parallel dimension...</p>
+                
+                <div class="error-404-messages">
+                    <div class="error-404-message">
+                        <span class="error-404-bracket">[</span> Signal lost in the cosmic void <span class="error-404-bracket">]</span>
+                    </div>
+                    <div class="error-404-message">
+                        <span class="error-404-bracket">[</span> 404: Path not found in this timeline <span class="error-404-bracket">]</span>
+                    </div>
+                    <div class="error-404-message">
+                        <span class="error-404-bracket">[</span> Probability wave function collapsed <span class="error-404-bracket">]</span>
+                    </div>
+                </div>
+
+                <div class="error-404-actions">
+                    <a href="{{ .Site.Home.RelPermalink }}" class="error-404-btn">Return to Origin</a>
+                    <a href="/projects" class="error-404-btn">Explore Projects</a>
+                    <a href="/blogs" class="error-404-btn">Read Blogs</a>
+                </div>
+
+                <div class="error-404-footer-text">
+                    <p>Beam me back home, Scotty...</p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -84,6 +97,7 @@
             <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved :)</p>
         </div>
     </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const header = document.querySelector('header');
@@ -96,18 +110,6 @@
                     header.classList.remove('scrolled');
                 }
             });
-
-            if (typeof renderMathInElement === 'function') {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        { left: '$$', right: '$$', display: true },
-                        { left: '\\[', right: '\\]', display: true },
-                        { left: '$', right: '$', display: false },
-                        { left: '\\(', right: '\\)', display: false }
-                    ],
-                    throwOnError: false
-                });
-            }
         });
     </script>
 </body>

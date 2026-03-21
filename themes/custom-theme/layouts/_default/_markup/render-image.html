@@ -1,0 +1,20 @@
+{{- $alt := .PlainText | default "image" -}}
+{{- $title := .Title -}}
+{{- $caption := $title -}}
+{{- if and (not $caption) (ne $alt "") (ne (lower $alt) "image") -}}
+  {{- $caption = $alt -}}
+{{- end -}}
+{{- $src := .Destination -}}
+{{- $resource := .Page.Resources.GetMatch $src -}}
+{{- if not $resource -}}
+  {{- $resource = .Page.Resources.GetMatch (printf "*%s" (path.Base $src)) -}}
+{{- end -}}
+
+<figure class="blog-image-wrap">
+  {{- if $resource -}}
+    <img src="{{ $resource.RelPermalink }}" alt="{{ $alt }}" loading="lazy" decoding="async">
+  {{- else -}}
+    <img src="{{ $src | safeURL }}" alt="{{ $alt }}" loading="lazy" decoding="async">
+  {{- end -}}
+  {{- with $caption }}<figcaption>{{ . }}</figcaption>{{ end -}}
+</figure>

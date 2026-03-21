@@ -1,8 +1,62 @@
 {{ define "main" }}
-<article class="fade-in">
-    <h1 class="gradient-text">{{ .Title }}</h1>
-    <div class="content">
-        {{ .Content }}
+<article class="fade-in blog-container">
+    <div class="blog-main">
+        {{ $image := .Params.image | default "" }}
+        {{ if $image }}
+            {{ with .Resources.GetMatch (printf "%s" $image) }}
+                {{ $md := .Resize "1000x" }}
+                {{ $lg := .Resize "1600x" }}
+                <div class="post-cover-container">
+                    <img class="post-cover-image" src="{{ $md.RelPermalink }}" srcset="{{ $md.RelPermalink }} 1000w, {{ $lg.RelPermalink }} 1600w, {{ .RelPermalink }} 2400w" sizes="100vw" loading="eager" alt="{{ $.Title }}">
+                </div>
+            {{ else }}
+                <div class="post-cover-container">
+                    <img class="post-cover-image" src="{{ $image }}" alt="{{ .Title }}">
+                </div>
+            {{ end }}
+        {{ end }}
+        <h1 class="gradient-text blog-title">{{ .Title }}</h1>
+        {{ if .Date }}
+        <p class="blog-meta"><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006" }}</time> • {{ .ReadingTime }} min read</p>
+        {{ end }}
+        <div class="blog-content">
+            {{ .Content }}
+        </div>
     </div>
+    
+    {{ if and (gt .WordCount 100 ) (ne .Params.toc false) }}
+    <aside class="blog-sidebar">
+        <div class="blog-toc">
+            <h3>Table of Contents</h3>
+            {{ .TableOfContents }}
+        </div>
+    </aside>
+    {{ end }}
 </article>
+
+{{ if and (gt .WordCount 100 ) (ne .Params.toc false) }}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                if (entry.intersectionRatio > 0) {
+                    document.querySelectorAll(`.blog-toc nav a`).forEach(a => a.classList.remove('active-toc'));
+                    const activeLink = document.querySelector(`.blog-toc nav a[href="#${id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active-toc');
+                    }
+                }
+            });
+        }, {
+            rootMargin: '-80px 0px -80% 0px' 
+        });
+
+        document.querySelectorAll('.blog-content h1[id], .blog-content h2[id], .blog-content h3[id], .blog-content h4[id]').forEach((section) => {
+            observer.observe(section);
+        });
+    });
+</script>
+{{ end }}
+
 {{ end }}

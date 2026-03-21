@@ -1,31 +1,3 @@
-# My Website - Everything at one place
-
-## Add new Blog:
-1. Create folder: `content/blogs/my-blog-name/`
-2. Create content/blogs/my-blog-name/index.md with:
-```toml
----
-title = "Blog Title"
-date = 2026-03-21
-draft = false
-tags = []
-categories = []
-toc = true
-description = "Brief description"
-image = "cover.jpg"
----
-
-markdown content here...
-```
-3. Add assets folder: `content/blogs/my-blog-name/assets/`
-
-
-## Add new Project:
-
-1. Open `data/projects.toml`
-2. Add project details in this template:
-
-```toml
 [[projects]]
 weight = 10
 title = "PacketScope"
@@ -46,4 +18,3 @@ highlights = [
   "Replay timeline with protocol-specific event markers",
   "Exportable session reports for incident reviews"
 ]
-```

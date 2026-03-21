@@ -1,0 +1,77 @@
+{{ define "main" }}
+<section class="projects-page fade-in">
+    <div class="projects-header">
+        <p class="projects-kicker">Selected Work</p>
+        <h1 class="projects-title">{{ .Title }}</h1>
+        {{ if .Content }}
+        <div class="projects-intro">{{ .Content }}</div>
+        {{ end }}
+    </div>
+
+    {{ $projects := sort site.Data.projects.projects "weight" "asc" }}
+    <div class="projects-grid fade-in delay-1">
+        {{ range $index, $project := $projects }}
+        <article class="project-panel">
+            <div class="project-panel-top">
+                <h2 class="project-name">{{ $project.title }}</h2>
+                <div class="project-flags">
+                    {{ with $project.status }}<span class="project-flag">{{ . }}</span>{{ end }}
+                    {{ with $project.year }}<span class="project-flag project-flag-muted">{{ . }}</span>{{ end }}
+                </div>
+            </div>
+
+            {{ with $project.tagline }}<p class="project-tagline">{{ . }}</p>{{ end }}
+            {{ with $project.description }}<p class="project-description">{{ . }}</p>{{ end }}
+
+            <dl class="project-meta">
+                {{ with $project.role }}
+                <div class="project-meta-item">
+                    <dt>Role</dt>
+                    <dd>{{ . }}</dd>
+                </div>
+                {{ end }}
+                {{ with $project.team }}
+                <div class="project-meta-item">
+                    <dt>Team</dt>
+                    <dd>{{ . }}</dd>
+                </div>
+                {{ end }}
+            </dl>
+
+            {{ with $project.tech }}
+            <div class="project-stack-block">
+                <h3>Tech</h3>
+                <ul class="project-chip-list">
+                    {{ range . }}<li>{{ . }}</li>{{ end }}
+                </ul>
+            </div>
+            {{ end }}
+
+            {{ with $project.tools }}
+            <div class="project-stack-block">
+                <h3>Tools</h3>
+                <ul class="project-chip-list project-chip-list-tools">
+                    {{ range . }}<li>{{ . }}</li>{{ end }}
+                </ul>
+            </div>
+            {{ end }}
+
+            {{ with $project.highlights }}
+            <div class="project-stack-block">
+                <h3>Highlights</h3>
+                <ul class="project-highlights">
+                    {{ range . }}<li>{{ . }}</li>{{ end }}
+                </ul>
+            </div>
+            {{ end }}
+
+            <div class="project-links">
+                {{ with $project.github }}<a class="project-link-btn" href="{{ . }}" target="_blank" rel="noopener">GitHub</a>{{ end }}
+                {{ with $project.demo }}<a class="project-link-btn" href="{{ . }}" target="_blank" rel="noopener">Deploy</a>{{ end }}
+                {{ with $project.blog }}<a class="project-link-btn" href="{{ . }}">Blog</a>{{ end }}
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</section>
+{{ end }}

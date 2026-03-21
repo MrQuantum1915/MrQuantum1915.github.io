@@ -1,7 +1,23 @@
 baseURL = 'https://mrquantum1915.github.io/'
 languageCode = 'en-us'
-title = 'Mr.Quantum_1915'
+title = 'DARSHAN PATEL'
 theme = 'custom-theme'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['$$', '$$'], ['\\[', '\\]']]
+          inline = [['$', '$'], ['\\(', '\\)']]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    noClasses = true
+    style = "github-dark"
+    tabWidth = 4
 
 [params]
     description = "Quantum"
