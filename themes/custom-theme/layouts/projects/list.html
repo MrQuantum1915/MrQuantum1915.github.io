@@ -1,7 +1,6 @@
 {{ define "main" }}
 <section class="projects-page fade-in">
     <div class="projects-header">
-        <p class="projects-kicker">Selected Work</p>
         <h1 class="projects-title">{{ .Title }}</h1>
         {{ if .Content }}
         <div class="projects-intro">{{ .Content }}</div>
@@ -67,7 +66,7 @@
 
             <div class="project-links">
                 {{ with $project.github }}<a class="project-link-btn" href="{{ . }}" target="_blank" rel="noopener">GitHub</a>{{ end }}
-                {{ with $project.demo }}<a class="project-link-btn" href="{{ . }}" target="_blank" rel="noopener">Deploy</a>{{ end }}
+                {{ with $project.demo }}<a class="project-link-btn" href="{{ . }}" target="_blank" rel="noopener">Deployment</a>{{ end }}
                 {{ with $project.blog }}<a class="project-link-btn" href="{{ . }}">Blog</a>{{ end }}
             </div>
         </article>

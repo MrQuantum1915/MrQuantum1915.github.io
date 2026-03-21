@@ -1,20 +1,90 @@
 [[projects]]
 weight = 10
-title = "PacketScope"
-tagline = "Network traffic analyzer for protocol-level debugging"
+title = "Voxel-Forge"
+tagline = "An Image to 3D Model Reconstruction Software with GUI"
+status = "Development"
+year = "2024"
+role = "C++ Developer (Student)"
+team = "Solo"
+description = "Developed a cross-platform desktop application for 3D photogrammetry, engineered library-level integration of OpenMVG (SfM) and OpenMVS (Dense Reconstruction)."
+github = "https://github.com/MrQuantum1915/Voxel-Forge"
+tech = ["C++", "Qt5", "CMake"]
+tools = ["vcpkg", "OpenMVG", "OpenMVS", "OpenCV"]
+highlights = [
+  "Eliminated sub-process I/O overhead by library-level integration.",
+  "Offloaded compute-heavy tasks to a dedicated worker thread.",
+  "Enabled pipeline interruption using std::atomic flags."
+]
+
+[[projects]]
+weight = 20
+title = "Neura Verse"
+tagline = "Extensible platform for AI applications"
+status = "Production"
+year = "2024"
+role = "Full-Stack Developer (Student)"
+team = "Solo"
+description = "Built Neura Verse a website hosting several AI/ML Modules. One of them is Lumina, a multimodal LLM chat app with persistent threads and workspace file storage. Designed NeuraFlow, a version-controlled engine refactoring linear chat into a DAG (Directed Acyclic Graph) for Git-like branching. Perfectly isolate context for non-linear reasoning and 'deep-think' research tasks using intuitive canvas flow management."
+github = "https://github.com/MrQuantum1915/Neura-Verse"
+demo = "https://neuraverse37.vercel.app/"
+tech = ["Next.js", "React.js", "JavaScript"]
+tools = ["Supabase", "PostgreSQL"]
+highlights = [
+  "Implemented DAG with Git-like branching for non-linear reasoning.",
+  "Used PostgreSQL Recursive CTEs reducing lookup to O(log n).",
+  "Refactored database schema eliminating 2NF violations."
+]
+
+[[projects]]
+weight = 30
+title = "Reverse Coding Platform (Tesseract'26)"
+tagline = "CCxEnigma Tesseract - A Reverse Coding Challenge Hosting Platform"
 status = "Production"
 year = "2025"
-role = "Full-Stack Engineer"
+role = "Full-Stack Developer"
 team = "Solo"
-description = "Built a traffic observability tool for parsing HTTP, DNS, and TLS handshake metadata with real-time filtering and session replay views."
-github = "https://github.com/example/packetscope"
-demo = "https://packetscope-demo.example.com"
-blog = "/blogs/digit-recognition-analysis/"
-
-tech = ["Go", "WebSockets", "PostgreSQL", "Docker"]
-tools = ["Wireshark", "Grafana", "GitHub Actions", "Nginx"]
+description = "Built and deployed a reverse coding contest platform for Tesseract’26 National scale contest, handling 600+ live concurrent users."
+github = "https://github.com/MrQuantum1915/reverse-coding-2k26"
+demo = "https://tesseract-2k26.vercel.app/"
+tech = ["Next.js", "React.js", "Node.js VM"]
+tools = ["Upstash Redis", "Supabase"]
 highlights = [
-  "Live packet stream filtering under 30ms",
-  "Replay timeline with protocol-specific event markers",
-  "Exportable session reports for incident reviews"
+  "Handled 600+ live concurrent users for Tesseract'26.",
+  "Developed a sandboxed Black Box execution engine via Node.js vm.",
+  "Enforced sliding-window rate limiting to block brute-force attacks."
 ]
+
+[[projects]]
+weight = 40
+title = "velox-rtl"
+tagline = "FGPA based real-time object speed detection"
+year = "2024"
+description = "FGPA based real-time object speed detection on Nexys A7 using Verilog RTL."
+github = "https://github.com/MrQuantum1915/velox-rtl"
+tech = ["Verilog"]
+tools = ["Nexys A7", "FPGA"]
+
+[[projects]]
+weight = 50
+title = "Digit-Recognition-NN"
+tagline = "Neural Network models trained on MNIST dataset"
+description = "Neural Network trained on MNIST dataset from scratch."
+github = "https://github.com/MrQuantum1915/Digit-Recognition-NN"
+demo = "https://neuraverse37.vercel.app/playgrounds/neura-glyph"
+tech = ["Python", "Jupyter Notebook"]
+
+[[projects]]
+weight = 60
+title = "Chess"
+tagline = "Command Line Chess Game"
+description = "A Command Line, console based Chess game completely build in C Language."
+github = "https://github.com/MrQuantum1915/Chess"
+tech = ["C"]
+
+[[projects]]
+weight = 70
+title = "FileSplitterX"
+tagline = "Lightweight tool to split files into chunks"
+description = "FileSplitterX is a lightweight tool to split files into custom-sized chunks with personalized extensions and merge them back to generate the original file."
+github = "https://github.com/MrQuantum1915/FileSplitterX"
+tech = ["C"]
