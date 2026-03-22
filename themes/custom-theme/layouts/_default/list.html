@@ -1,5 +1,11 @@
 {{ define "main" }}
-<h1 class="fade-in blogs-title">{{ .Title }}</h1>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+    <h1 class="fade-in blogs-title" style="margin-bottom: 0;">{{ .Title }}</h1>
+    <a href="{{ "index.xml" | absURL }}" target="_blank" class="fade-in delay-1" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-primary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid var(--accent-primary); background: color-mix(in srgb, var(--accent-primary) 5%, transparent); transition: all 0.3s ease;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+        SUBSCRIBE_RSS
+    </a>
+</div>
 <div class="fade-in delay-1">
     {{ .Content }}
 </div>

@@ -6,7 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
-    <!-- Theme Toggle Script -->
+    <!-- seo and social open graph image -->
+    {{ template "_internal/opengraph.html" . }}
+    {{ template "_internal/twitter_cards.html" . }}
+    
+    <!-- auto-discovery for RSS and sitemap -->
+    {{ range .AlternativeOutputFormats -}}
+    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title }}">
+    {{ end -}}
+
+    <!-- theme toggle script -->
     {{ $themeJs := resources.Get "js/theme-toggle.js" }}
     {{ if $themeJs }}
     {{ $themeJs = $themeJs | resources.Minify }}
@@ -103,6 +112,10 @@
                 <a href="https://linkedin.com/in/darshan-patel-1713062a4" target="_blank">LinkedIn</a>
                 <a href="https://x.com/PatelDarsh92081" target="_blank">X / Twitter</a>
                 <a href="https://instagram.com/mrquantum_1915" target="_blank">Instagram</a>
+                <a href="{{ "index.xml" | absURL }}" target="_blank" style="display: flex; align-items: center; gap: 0.4rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+                    RSS
+                </a>
             </div>
             
             <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); margin: 0; opacity: 0.7; text-align: center;">
