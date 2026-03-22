@@ -464,4 +464,4 @@ Also this network surely has many redundant neurons.
 
 Let's see what CNN can achieve compared to these soon.
 
-# References
+## References

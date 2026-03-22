@@ -44,6 +44,13 @@
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                 setTheme(newTheme);
                 updateToggleIcon(newBtn, newTheme);
+                
+                // update giscus theme
+                const iframe = document.querySelector('iframe.giscus-frame');
+                if (iframe) {
+                    const giscusTheme = newTheme === 'dark' ? 'transparent_dark' : 'noborder_light';
+                    iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: giscusTheme } } }, 'https://giscus.app');
+                }
             });
         }
     };
