@@ -7,8 +7,7 @@
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
     <!-- seo and social open graph image -->
-    {{ template "_internal/opengraph.html" . }}
-    {{ template "_internal/twitter_cards.html" . }}
+    {{ partial "seo.html" . }}
     
     <!-- auto-discovery for RSS and sitemap -->
     {{ range .AlternativeOutputFormats -}}
