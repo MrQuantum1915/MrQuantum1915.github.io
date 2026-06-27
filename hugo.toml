@@ -1,5 +1,5 @@
 baseURL = 'https://mrquantum1915.github.io/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = 'DARSHAN PATEL'
 theme = 'custom-theme'
 enableRobotsTXT = true

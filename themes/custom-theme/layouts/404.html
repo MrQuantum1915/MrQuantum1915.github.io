@@ -1,117 +1,32 @@
-<!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang }}">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found | {{ .Site.Title }}</title>
-
-    <!-- Theme Toggle Script -->
-    {{ $themeJs := resources.Get "js/theme-toggle.js" }}
-    {{ if $themeJs }}
-    {{ $themeJs = $themeJs | resources.Minify }}
-    <script>{{ $themeJs.Content | safeJS }}</script>
-    {{ end }}
-
-    {{ $style := resources.Get "css/style.css" }}
-    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
-
-    {{ $syntax := resources.Get "css/syntax-dark.css" }}
-    <link rel="stylesheet" href="{{ $syntax.RelPermalink }}">
-
-    {{ $favicon := resources.Get "logo.png" }}
-    {{ if $favicon }}
-    <link rel="icon" href="{{ $favicon.RelPermalink }}" type="image/png">
-    {{ end }}
-</head>
-
-<body>
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="{{ .Site.Home.RelPermalink }}" class="logo">
-                    {{ .Site.Title }}
-                </a>
-
-                <ul class="nav-menu">
-                    {{ range .Site.Menus.main }}
-                    <li class="nav-item">
-                        <a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>
-                    </li>
-                    {{ end }}
-                    <li class="nav-item">
-                        <button id="theme-toggle" aria-label="Toggle Theme">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                            </svg>
-                        </button>
-                    </li>
-                </ul>
-
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <main class="container" style="margin-top: 80px;">
-        <section class="error-404-portal">
-            <div class="error-404-cosmic">
-                <div class="error-404-code">404</div>
-                <div class="error-404-divider"></div>
-                <h1 class="error-404-title">Quantum State Collapsed</h1>
-                <p class="error-404-subtitle">The page you're searching for exists in a parallel dimension...</p>
-                
-                <div class="error-404-messages">
-                    <div class="error-404-message">
-                        <span class="error-404-bracket">[</span> Signal lost in the cosmic void <span class="error-404-bracket">]</span>
-                    </div>
-                    <div class="error-404-message">
-                        <span class="error-404-bracket">[</span> 404: Path not found in this timeline <span class="error-404-bracket">]</span>
-                    </div>
-                    <div class="error-404-message">
-                        <span class="error-404-bracket">[</span> Probability wave function collapsed <span class="error-404-bracket">]</span>
-                    </div>
-                </div>
-
-                <div class="error-404-actions">
-                    <a href="{{ .Site.Home.RelPermalink }}" class="error-404-btn">Return to Origin</a>
-                    <a href="/projects" class="error-404-btn">Explore Projects</a>
-                    <a href="/blogs" class="error-404-btn">Read Blogs</a>
-                </div>
-
-                <div class="error-404-footer-text">
-                    <p>Beam me back home, Scotty...</p>
-                </div>
+{{ define "main" }}
+<section class="error-404-portal">
+    <div class="error-404-cosmic">
+        <div class="error-404-code">404</div>
+        <div class="error-404-divider"></div>
+        <h1 class="error-404-title">Quantum State Collapsed</h1>
+        <p class="error-404-subtitle">The page you're searching for exists in a parallel dimension...</p>
+        
+        <div class="error-404-messages">
+            <div class="error-404-message">
+                <span class="error-404-bracket">[</span> Signal lost in the cosmic void <span class="error-404-bracket">]</span>
             </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved :)</p>
+            <div class="error-404-message">
+                <span class="error-404-bracket">[</span> 404: Path not found in this timeline <span class="error-404-bracket">]</span>
+            </div>
+            <div class="error-404-message">
+                <span class="error-404-bracket">[</span> Probability wave function collapsed <span class="error-404-bracket">]</span>
+            </div>
         </div>
-    </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const header = document.querySelector('header');
-            const scrollThreshold = 50;
+        <div class="error-404-actions">
+            <a href="{{ .Site.Home.RelPermalink }}" class="error-404-btn">Return to Origin</a>
+            <a href="/projects" class="error-404-btn">Explore Projects</a>
+            <a href="/blogs" class="error-404-btn">Read Blogs</a>
+        </div>
 
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > scrollThreshold) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-        });
-    </script>
-</body>
-
-</html>
+        <div class="error-404-footer-text">
+            <p>Beam me back home, Scotty...</p>
+        </div>
+    </div>
+</section>
+{{ end }}

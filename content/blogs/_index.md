@@ -2,4 +2,4 @@
 title: "Blogs"
 ---
 
-Here are some of the blogs I've written.
+My Technical and Non-Technical blogs written so far...

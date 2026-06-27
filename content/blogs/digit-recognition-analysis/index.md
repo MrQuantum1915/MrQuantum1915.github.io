@@ -1,12 +1,12 @@
 ---
-title: "Chasing 99%: Analysis of my experiments..."
+title: "Chasing 99%: MNIST without CNN"
 date: 2026-03-20
 draft: false
 image: "cover.jpg"
-description: "Analysis of models trained on MNIST Dataset for digit recognition."
+description: "Analysis of NN models trained on MNIST Dataset for digit recognition."
 ---
 
-This blog contains the full analysis of the models I trained on [MNIST Dataset](https://www.kaggle.com/datasets/hojjatk/mnist-dataset) for digit recognition.  Training set contains 60,000 images while test set contains 10,000 images.
+This blog contains the full analysis of the Neural Network models I trained on [MNIST Dataset](https://www.kaggle.com/datasets/hojjatk/mnist-dataset) for digit recognition.  Training set contains 60,000 images while test set contains 10,000 images.
 
 You can follow along with the code in the repo [Digit-Recognition-NN](https://github.com/MrQuantum1915/Digit-Recognition-NN/blob/main/dr_nn.ipynb). I have written pretty detailed explanations in that jupyter notebook too about the choices and implementations.
 

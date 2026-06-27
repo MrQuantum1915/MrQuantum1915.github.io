@@ -7,7 +7,7 @@
         {{ end }}
     </div>
 
-    {{ $projects := sort site.Data.projects.projects "weight" "asc" }}
+    {{ $projects := sort hugo.Data.projects.projects "weight" "asc" }}
     <div class="projects-grid fade-in delay-1">
         {{ range $index, $project := $projects }}
         <article class="project-panel">
