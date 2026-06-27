@@ -849,9 +849,7 @@ main:has(.blog-container) {
 }
 
 .blog-content h1,
-.blog-content h2,
-.blog-content h3,
-.blog-content h4 {
+.blog-content h2 {
     font-family: var(--font-body);
     color: var(--text-primary);
     margin-top: 2em;
@@ -860,6 +858,36 @@ main:has(.blog-container) {
     border-bottom: 1px solid var(--border-color);
     letter-spacing: 0.02em;
     word-spacing: 0.06em;
+}
+
+.blog-content h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.blog-content h2 {
+    font-size: 1.65rem;
+    font-weight: 700;
+}
+
+.blog-content h3,
+.blog-content h4 {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    margin-top: 1.8em;
+    margin-bottom: 0.8em;
+    letter-spacing: 0.02em;
+    word-spacing: 0.06em;
+}
+
+.blog-content h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+}
+
+.blog-content h4 {
+    font-size: 1.15rem;
+    font-weight: 600;
 }
 
 .blog-content a {
@@ -876,13 +904,16 @@ main:has(.blog-container) {
 
 .blog-content blockquote {
     border-left: 4px solid var(--accent-primary);
-    padding-left: 1rem;
-    margin-left: 0;
+    margin: 1.5rem 0;
     color: var(--text-secondary);
     font-style: italic;
-    background: rgba(0, 0, 0, 0.02);
-    padding: 1rem;
+    background: var(--card-bg);
+    padding: 1rem 1.25rem;
     border-radius: 0;
+}
+
+.blog-content blockquote p:last-child {
+    margin-bottom: 0;
 }
 
 /* Images */

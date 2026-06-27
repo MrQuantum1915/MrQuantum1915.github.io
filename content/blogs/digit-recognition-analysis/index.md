@@ -14,12 +14,12 @@ You can follow along with the code in the repo [Digit-Recognition-NN](https://gi
 
 ## A bit about implementation
 
-I used $n$ Hidden Layer Fully connected Neural Network (not CNN because I don't learn it yet :)).
+I used an $n$-Hidden-Layer Fully Connected Neural Network (not CNN because I haven't learned it yet :)).
 
-Firstly the dataset is in `idx3-ubyte` (binary format). So i used `struct` library of python to read the binary file and extract the data into numpy array, then normalizing + zero centering the dataset to prevent erratic weight updates during training and help the optimizer to step quickly toward global minima.
+Firstly the dataset is in `idx3-ubyte` (binary format). So I used the `struct` library of Python to read the binary file and extract the data into a numpy array, then normalized and zero-centered the dataset to prevent erratic weight updates during training and help the optimizer step quickly toward the global minima.
 
 Normalizing: $$x_{train}=\frac{x_i - \bar{x}}{\sigma}$$
-Then use `Dataloader` module from `pytorch` to batch the training data into `batch_size = 50`. The reason is that without batching the optimizer updates weights based on loss for single image and hence a single noisy image can change the weights drastically. So we take a batch of particular size and then update weights based on average loss of full batch. And for that to work we also need to randomize the dataset first so that chances of a batch being filled by noisy images are low. For our MNIST dataset that part is already done by the researches who made it; so we are good to go!.
+Then, used the `DataLoader` module from `PyTorch` to batch the training data into `batch_size = 50`. The reason is that without batching, the optimizer updates weights based on the loss of a single image, and so a single noisy image can change the weights drastically. Taking a batch of a particular size allows us to update the weights based on the average loss of the full batch. For this to work, we need to randomize the dataset so the chances of a batch being filled with noisy images are low. For the MNIST dataset, this is already done by the researchers who made it, so we are good to go!
 
 
 ## Models
@@ -49,7 +49,7 @@ Adam optimizer (Adaptive Moment Estimation)  efficiently adjusts the learning ra
 
 ## Tweaking with training parameters
 
-## Version 1, 2 and 3
+### Version 1, 2 and 3
 First I trained the model using 10 epochs, and accuracy was 97.24.
 ```json
 "model_type": "2_HL_NN_v1",
@@ -74,7 +74,7 @@ I then tried to increase the epochs to 50 to see the results:
 "optimizer": "Adam"
 ```
 
-As you can see the SLIGHTLY performed better on  both training and test dataset. 
+As you can see, the model performed slightly better on both the training and test datasets. 
 
 On 100 epochs the model performed substantially better
 ```json
@@ -90,7 +90,7 @@ On 100 epochs the model performed substantially better
 
 If keep increasing that it starts overfitting and starts performing bad on the test dataset as we see later in the blog.
 
-Loss Curves: As you can see more epochs gave the model more iterations to update its weights properly and hence the it navigates closer to global minima. The jaggy part of curve shows the points where model navigates to a uphill position due to momentum (learning rate) but in next iteration comes backs down the hill towards. Note that this is just simplification of N dimensional space onto 3 Dimensional for understanding.
+Loss Curves: As you can see, more epochs gave the model more iterations to update its weights properly, and hence it navigates closer to the global minima. The jaggy part of the curve shows the points where the model navigates to an uphill position due to momentum (learning rate) but in the next iteration comes back down the hill towards the minima. Note that this is just a simplification of the $N$-dimensional space onto 3 dimensions for understanding.
 
 ![](<assets/Pasted image 20260315043106.png>)
 ![](<assets/Pasted image 20260315043115.png>)
@@ -106,8 +106,8 @@ digits it increased a bit.
 
 NOTE: the confusion matrix is based on the testing results on 10,000 test images.
 
-# Version 4
-Now I increased the Learning Rate which means the optimizer will make more big steps, means more momentum. In some cases this helps because it can potentially move past a local minima due to momentum. But in some cases it may overshoot the global minima and prevents it from settling around minima due to momentum, where it constantly juggles back and forth on the valley and hill. In this case the accuracy decreased to 95% which means it failed to settle on the minima.
+### Version 4
+Now I increased the learning rate, which means the optimizer will make more bigger steps, meaning more momentum. In some cases this helps because it can potentially move past a local minima due to momentum. But in some cases it may overshoot the global minima and prevent the model from settling around the minima, causing it to constantly juggle back and forth on the valley and hill. In this case, the accuracy decreased to 95%, which means it failed to settle on the minima.
 ```json
 "model_type": "2_HL_NN_v4",
 "test_accuracy": 95.29,
@@ -125,14 +125,14 @@ Loss curve never settles, it is very "jaggy" due to reasons stated above.
 
 ![](<assets/Pasted image 20260315045131.png>)
 
-Confusion increased overall. One interesting observation is the column of digit 3. The model consistently predicted a number as 3 when it was not actually a 3. The possible reasons might be :
-- 3 has much overlap in pixels to other digits.  mainly the bottom right curve overlaps with 5,6,8,9,0 and top right curve overlaps with that of 2.  So there is so much common area between 3 and other number. As LR was higher, the model failed to learn the *fine* *differentiating* factors that makes 3 a unique from all those. So whenever it sees that curves it default to 3.
-- Or may be due to high LR, the model learned that whenever it is uncertain, the safest bet is to predict 3 to minimize loss.
+Confusion increased overall. One interesting observation is the column of digit 3. The model consistently predicted a number as a 3 when it was not actually a 3. The possible reasons might be:
+- 3 has much overlap in pixels with other digits; mainly, the bottom-right curve overlaps with 5, 6, 8, 9, and 0, and the top-right curve overlaps with that of 2. So there is a lot of common area between 3 and other numbers. As the learning rate was higher, the model failed to learn the *fine* *differentiating* factors that make a 3 unique from all those. So whenever it sees those curves, it defaults to 3.
+- Or maybe due to the high learning rate, the model learned that whenever it is uncertain, the safest bet is to predict 3 to minimize loss.
 
-## Version 5
-Now I decreased the learning rate to 0.0001, and now the train accuracy reached 100%, however compared to the 97.5% testing accuracy of model `2_HL_NN_v3` , this model had a bit lower testing accuracy, but the change is very small, so cant figure out the exact reason. Two possible reasons might be :
-- overfitting on the training dataset. As it settled heavily on the minima of training landscape, it slightly learned less of logical relation, and just tried to fit to the training dataset.
-- 2nd reason i think of is RANDOMNESS. Because the Neural Network is initialized randomly before training begins, there is always slight difference in output. I should have used `seed` for my network to be reproducible. But anyways I am fine with that :)  as the changes is not substantial; only 0.06 percent decrease.
+### Version 5
+Now I decreased the learning rate to 0.0001, and now the train accuracy reached 100%. However, compared to the 97.5% testing accuracy of model `2_HL_NN_v3`, this model had a bit lower testing accuracy. The change is very small, so I can't figure out the exact reason. Two possible reasons might be:
+- Overfitting on the training dataset. As it settled heavily on the minima of the training landscape, it learned slightly less of the logical relationships and just tried to fit the training dataset.
+- The second reason I think of is randomness. Because the Neural Network is initialized randomly before training begins, there is always a slight difference in output. I should have used `seed` for my network to be reproducible. But anyways, I am fine with that :) as the change is not substantial; only a 0.06% decrease.
 ```json
 "model_type": "2_HL_NN_v5",
 "test_accuracy": 97.44,
@@ -150,8 +150,9 @@ However the learning curve was very SMOOTH as it should be due to small steps of
 ![](<assets/Pasted image 20260315155044.png>)
 
 From now on I have kept the learning at 0.0001.
-## Version 6
-I increased the epoch to 500. And yeah it over fitted to training dataset. 100% train accuracy and 97.2% test accuracy. The test accuracy decreased a ton. The final train loss is much lower due to large iterations.
+
+### Version 6
+I increased the epochs to 500. And yes, it overfitted to the training dataset. It achieved 100% train accuracy and 97.29% test accuracy. The test accuracy decreased. The final train loss is much lower due to the large no. of iterations.
 ```json
 "model_type": "2_HL_NN_v6",
 "test_accuracy": 97.29,
@@ -167,8 +168,8 @@ I increased the epoch to 500. And yeah it over fitted to training dataset. 100% 
 ![](<assets/Pasted image 20260315155532.png>)
 
 
-## Version 7
-Now resetting the epoch to 50, I increased the batch size to 1000. And oops... the test and training accuracy came down to 95%!
+### Version 7
+Now resetting the epochs to 50, I increased the batch size to 1000. And oops... the test and training accuracy came down to 95.5%!
 ```json
 "model_type": "2_HL_NN_v7",
 "test_accuracy": 95.56,
@@ -181,17 +182,17 @@ Now resetting the epoch to 50, I increased the batch size to 1000. And oops... t
 ```
 
 The possible reasons:
-- As you increased the batch_size the number of weight updates per epoch reduce from 1200 to just 60 weight updates. Now combine this with low learning rate of 0.0001 and total epochs of 50, the model didn't get sufficient time to properly update the weights to descent to the global minima. (As both train and test accuracy decreased, this is the perfect reason. If only test accuracy decreased then it would mean overfitting.) The model did not converge properly in those 50 epochs.
+- As the batch size increased, the number of weight updates per epoch reduced from 1200 to just 60. Combining this with the low learning rate of 0.0001 and only 50 epochs, the model didn't get sufficient time to properly update the weights to descend to the global minima. (As both train and test accuracy decreased, this is the main reason; if only test accuracy had decreased, it would mean overfitting.) The model did not converge properly in those 50 epochs.
 
-- Also large batch size strips away the noise inherent in the small batch size. Because of large size on average the noise gets minimized as there will be more perfect training images compared to noisy ones. That's loss of regularization noise. Sometimes this noise helps optimizer in escaping sharp local minima that generalizes poorly.
+- Also, a large batch size strips away the noise inherent in smaller batch sizes. Because of the large size, on average the noise gets minimized as there will be more perfect training images compared to noisy ones. That means a loss of regularization noise. Sometimes this noise helps the optimizer escape sharp local minima that generalize poorly.
 
 - Adam relies on the variance across batches to adapt the dynamic learning rates of neurons effectively. When the batch size is 1000, the gradients are so smoothed out that the variance between batches falls down. Adam's adaptive mechanisms become much less effective, and it essentially behaves like standard gradient descent.
 
-The most plausible reason I think is the first one. Actually when you increase the batch size, you should also increase the learning rate. This is the ***Linear Scaling Rule*** :
+The most plausible reason I think is the first one. Actually, when you increase the batch size, you should also increase the learning rate. This is the ***Linear Scaling Rule***:
 
-> when multiplying the mini-batch size by a factor in deep learning, the learning rate should also be multiplied by to maintain stable training
+> When multiplying the mini-batch size by a factor in deep learning, the learning rate should also be multiplied by that factor to maintain stable training.
 
-You can read the Linear Scaling Rule in the paper ***Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour***  on [arxiv](https://arxiv.org/pdf/1706.02677#:~:text=Linear%20Scaling%20Rule%3A%20When%20the,other%20hyper%2Dparameters%20(weight%20decay%2C%20etc.)
+You can read the Linear Scaling Rule in the paper ***Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour***  on [arxiv paper](https://arxiv.org/pdf/1706.02677#:~:text=Linear%20Scaling%20Rule%3A%20When%20the,other%20hyper%2Dparameters%20%28weight%20decay%2C%20etc.%29)
 
 
 Loss Curve
@@ -200,7 +201,7 @@ Loss Curve
 As you can see the curve had still not reached the plateau, when the training got finished.
 ![](<assets/Pasted image 20260315162119.png>)
 
-## Version 8
+### Version 8
 Reduced batch size to 1. Which is essentially : no batching. Pure Stochastic gradient descent.
 And yeah this gave the highest testing accuracy of 97.64% (so far, we have better later).
 ```json
@@ -214,11 +215,11 @@ And yeah this gave the highest testing accuracy of 97.64% (so far, we have bette
 "optimizer": "Adam"
 ```
 
-That's because compared to batch size of 100 or 1000, it got exponentially higher number of weight updates 60000 weight updates per epoch; 3 Millions updates in full training .  Its brute force! It got significantly more steps to traverse the loss landscape. This is also visible in terms of actual training time.  It took around 50 minutes in total to train this model. which is so much longer then 5-10 minutes.; even though this dataset is relatively tiny compared to other datasets.
+That's because compared to batch size of 100 or 1000, it got an exponentially higher number of weight updates: 60,000 weight updates per epoch, or 3 million updates in full training. It's brute force! It got significantly more steps to traverse the loss landscape. This is also visible in terms of actual training time: it took around 50 minutes in total to train this model, which is much longer than the 5-10 minutes for other runs, even though this dataset is relatively tiny compared to other datasets.
 
-Did i use GPU then? Obviously yes, i used google colabs T4 GPU compute. But its of no use in this case, because batch size of 1 is essentially doing the training sequentially rather then using its full parallelization power. Its essentially like training on CPU or even worse if we take in account the setup overhead of GPU for computation like transferring of data from CPU VRAM to GPU's VRAM, which in case of large batches gets spread over all samples, which compared to time advantage from parallelization makes it look tiny.
+Did I use a GPU then? Yes, I used Google Colab's T4 GPU compute. But it's of no use in this case, because a batch size of 1 essentially does the training sequentially rather than using its full parallelization power. It's like training on a CPU or even worse if we take into account the setup overhead of the GPU for computation (like transferring data from CPU RAM to GPU VRAM), which in case of large batches gets spread over all samples, which compared to time advantage from parallelization makes it look tiny.
 
-So for training models, batch size of 1 is terrible in most cases (if single batch does not need massive matrix multiplications). 
+So for training models, a batch size of 1 is terrible in most cases (unless a single sample requires massive matrix computations). 
 
 ![](<assets/Pasted image 20260315162634.png>)
 
@@ -256,12 +257,12 @@ Got no substantial advantage.
 "optimizer": "Adam"
 ```
 
-However the loss curve shows. As it didn't reach the plateau at the end of training. However I retrained with 100 epochs but got no substantial increase.
+However, the loss curve shows that it didn't reach a plateau by the end of training. I retrained it for 100 epochs but got no substantial increase in accuracy.
 ![](<assets/Pasted image 20260315192103.png>)
 
-So it seems increasing the number of layers did none better than 2 layers. Hence it reminds us that "deeper is not always better" in deep learning. Especially for a simpler dataset like MNIST, stacking layers is not beneficial as such. The 2 Layer network is already capable of approximating a function to solve this problem; mapping a 784 dimensional vector to 10 dimensional vector. More layers are needed only when we have to approximate a much Complex Function like image classification on ImageNet dataset using CNN, with each layer learning some feature like texture, edges, etc.
+So it seems increasing the number of layers did no better than 2 layers. Hence, it reminds us that "deeper is not always better" in deep learning. Especially for a simple dataset like MNIST, stacking layers is not beneficial as such. The 2-layer network is already capable of approximating a function to solve this problem, mapping a 784-dimensional vector to a 10-dimensional vector. More layers are needed only when we have to approximate a much more complex function like image classification on the ImageNet dataset using a CNN, with each layer learning some feature like texture, edges, etc.
 
-In our case, adding more layers make the model learn very very fine grained pixel settings and noise which is not neccessary at all. The loss landscape becomes much more complex.
+In our case, adding more layers makes the model learn very fine-grained pixel settings and noise, which is not necessary at all. The loss landscape becomes much more complex.
 
 Even a single layer network gave fair results. 97.27% test accuracy and 99.97% train accuracy.
 
@@ -277,7 +278,7 @@ Even a single layer network gave fair results. 97.27% test accuracy and 99.97% t
 ```
 
 
-## Version 2
+### Version 2
 I tried to experiment with `Sigmoid` Activation function instead of `ReLU`. But as expected, it did worse. 
 
 ```python
@@ -307,17 +308,17 @@ The test accuracy decreased to 95.93%
 Sigmoid Function
 ![](<assets/Pasted image 20260315193245.png>)
 
-Most of the space accumulates around 1 and 0 and not in-between. And the gradient at that point tends to 0. And hence weights have less update magnitude. The derivative  $\sigma'(z) = \sigma(z)(1 - \sigma(z))$, has an absolute maximum of $0.25$. In a 3 hidden layer architecture, the chain rule multiplies these fractions backward (e.g., $0.25^3 = 0.0156$ in the best case scenario), mathematically preventing the earliest layers of a meaningful learning signal.
+Most of the values accumulate around 1 and 0 and not in-between, and the gradient at those points tends to 0. Hence, the weights have a very small update magnitude. The derivative $\sigma'(z) = \sigma(z)(1 - \sigma(z))$ has an absolute maximum of $0.25$. In a 3-hidden-layer architecture, the chain rule multiplies these fractions backward (e.g., $0.25^3 = 0.0156$ in the best case scenario), mathematically preventing the earliest layers from receiving a meaningful learning signal.
 
-Also if the neuron's preactivation values are strongly positive or negative, the curve flattens completly making the gradient zero, and hence it ***FREEZES*** the neurons and restricts learning.
+Also, if the neuron's preactivation values are strongly positive or negative, the curve flattens completely, making the gradient zero. Hence, it ***FREEZES*** the neurons and restricts learning.
 
-That's commonly called Vanishing gradient problem.
+This is commonly called the vanishing gradient problem.
 
-To handle this usually we use two approaches:
+To handle this, we usually use two approaches:
 
-1. **Proper Weight Initialisation:** **Xavier Initialisation** (Glorot Initialisation). It keeps the signal variance consistent across layers, preventing the weights from being so large or small that the sigmoid saturates (flattens out) at 0 or 1.
+1. **Proper Weight Initialisation:** **Xavier Initialisation** (Glorot Initialisation). It keeps the signal variance consistent across layers, preventing the weights from being so large or small that the sigmoid saturates (flattens out) at 0 or 1.
 
-2. **Input Scaling:**  Which we already did! Make input data **normalised** or **standardised** (typically scaled to a range like [0, 1] or [-1, 1]). If inputs are too large, the function immediately enters the flat regions where the gradient is nearly zero, effectively "killing" the neuron's ability to learn.
+2. **Input Scaling:** Which we already did! Making input data **normalised** or **standardised** (typically scaled to a range like [0, 1] or [-1, 1]) prevents saturation. If inputs are too large, the function immediately enters the flat regions where the gradient is nearly zero, effectively "killing" the neuron's ability to learn.
 
 
 
@@ -331,7 +332,7 @@ However on negative side its complete 0. If a large gradient update pushes a neu
 
 In a deep network with a high learning rate, up to 40% of the ReLU network can silently die during early training, turning massive architecture into a highly constrained, inefficient model.
 
-## Version 3
+### Version 3
 Reducing number of neurons
 
 ```python
@@ -358,18 +359,18 @@ nn.Sequential(
 "optimizer": "Adam"
 ```
 
-The Test Accuracy decreased. Also observing the loss curve, its clear that the model has ample time for learning, as it started to reach a plateau around 0.2.
+The Test Accuracy decreased. Also observing the loss curve, it's clear that the model has ample time for learning, as it started to reach a plateau around 0.2.
 ![](<assets/Pasted image 20260315203448.png>)
 
-Its severe underfitting.
-So the issue is that less neurons failed to capture the nuances of the pixels 28x28 = 784.
-By mapping the input layer directly from 784 dimensions down to just 10we have a tight bottleneck for information. 
+It's severe underfitting.
+So the issue is that fewer neurons failed to capture the nuances of the $28 \times 28 = 784$ pixels.
+By mapping the input layer directly from 784 dimensions down to just 10, we have a tight bottleneck for information. 
 
-The first hidden layer of a neural network is responsible for extracting low level features (like strokes or edges). To classify 10 distinct digits, the network needs to hold enough combinations of these strokes in its active memory. When we compress 784 pixels into a 10 dim vector, the projection matrix $W \in \mathbb{R}^{10 \times 784}$ forces the network to discard massive amounts of variance. This shows that it is mathematically impossible to linearly separate the complex, entangled features of the MNIST dataset within a space that is only 10 dimensions wide without losing critical distinguishing information.
+The first hidden layer of a neural network is responsible for extracting low-level features (like strokes or edges). To classify 10 distinct digits, the network needs to hold enough combinations of these strokes in its active memory. When we compress 784 pixels into a 10-dimensional vector, the projection matrix $W \in \mathbb{R}^{10 \times 784}$ forces the network to discard massive amounts of variance. This shows that it is mathematically impossible to linearly separate the complex, entangled features of the MNIST dataset within a space that is only 10 dimensions wide without losing critical distinguishing information.
 
-Also the uniform number of neurons across layer posses a problem. Because the layers never expand, the network can never recover or recombine features into a higher-dimensional space to make them linearly separable before the final classification.
+Also, the uniform number of neurons across layers poses a problem. Because the layers never expand, the network can never recover or recombine features into a higher-dimensional space to make them linearly separable before the final classification.
 
-# Version 4
+### Version 4
 Increasing neurons to 100. And yeah the accuracy increased to 97.81.
 ```python
 nn.Flatten(),
@@ -394,7 +395,7 @@ nn.Linear(100,10)
 ```
 
 
-## Version 5
+### Version 5
 Now increased the number of neurons to 1000 (more than 784 input dimensions), and yeah accuracy increased to 98.32%, the best model I got in this whole experiment. 
 ```python
 nn.Sequential(
@@ -423,14 +424,14 @@ nn.Sequential(
 ![](<assets/Pasted image 20260315214011.png>)
 ![](<assets/Pasted image 20260315214017.png>)
 
-However there is unusually high confusion between 9 and 4 compared to previous models. These suggests the model successfully approximated the function for all other digits, except the 4 and 9. CNN would be help here.
+However, there is unusually high confusion between 9 and 4 compared to previous models. This suggests the model successfully approximated the function for all other digits, except 4 and 9. A CNN would help here.
 
-The increase in accuracy may be due to it captured more detailed features and relation from that 784 pixels, to make a decision, but its not purely that actually. Also its slight overfitting if not more. Because as you increase the number of neurons, you give more space for model to just memorize the data. But the testing accuracy increased ANYWAY. This is likely the example of ***Benign Overfitting***. 
+The increase in accuracy may be due to capturing more detailed features and relationships from the 784 pixels to make a decision, but it's not purely that. It is also a slight overfitting. Because as you increase the number of neurons, you give more space for the model to just memorize the data. But the testing accuracy increased anyway. This is likely an example of ***Benign Overfitting***. (Though i doubt it in our case as its just a simple problem - MNIST, and not an complex network/problem or LLM)
 
->**Benign overfitting** is a phenomenon in machine learning where a model perfectly fits its training data (achieving zero training error), including any noise or random errors; yet still manages to generalize and perform with high accuracy on new, unseen data.
->This discovery challenges the "classical statistical wisdom" of the [bias-variance tradeoff](https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff), which typically suggests that such extreme fitting leads to poor predictive performance.
+>**Benign overfitting** is a phenomenon in machine learning where a model perfectly fits its training data (achieving zero training error), including any noise or random errors, yet still manages to generalize and perform with high accuracy on new, unseen data.
+>This discovery challenges the "classical statistical wisdom" of the [bias-variance tradeoff](https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff), which typically suggests that such extreme fitting leads to poor predictive performance.
 
-Actually I never read about this before this experiments. I just increased the number of neurons to see the results out of my curiosity and found it unusual that the test error to training error actualy decreased instead of overfitting and then went on to do some research on the topic.  But as it came to be : its already published :( sad life.
+Actually, I had never read about this before these experiments. I just increased the number of neurons out of curiosity and found it unusual that the test error actually decreased instead of showing signs of overfitting, and then went on to do some research on the topic. But as it turned out, it is already published :( sad life.
 
 This actually is a highly active and "hot" field in **deep learning theory**, as it provides the theoretical backbone for why modern overparameterized models; like LLMs; work so well. This behavior is the exact setup that gave birth to the Modern Deep Learning Theory.
 
@@ -456,7 +457,7 @@ Deep Double descent (OpenAI) - they extended it to Deep and complex neural netwo
 
 Also this network surely has many redundant neurons.
 
-**NOTE**: This model took 34 minutes to train due to high number of neurons. So brute forcing didn't gave significant returns : Exponential increase in number of neurons gave decaying returns.
+**NOTE**: This model took 34 minutes to train due to the high number of neurons. So brute-forcing didn't give significant returns: an exponential increase in the number of neurons gave decaying returns.
 
 >100 neurons : 97.8
 >1000 neurons: 98.32
