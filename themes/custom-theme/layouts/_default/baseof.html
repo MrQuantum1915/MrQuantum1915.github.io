@@ -53,7 +53,15 @@
     {{ end }}
 </head>
 
-<body>
+<body class="{{ if .IsPage }}single-page{{ else }}list-page{{ end }} type-{{ .Type }}">
+    {{ $galaxies := resources.Get "galaxies.jpg" }}
+    {{ if $galaxies }}
+    {{ $galaxiesImg := $galaxies.Resize "1920x webp" }}
+    <div class="global-bg-container">
+        <img src="{{ $galaxiesImg.RelPermalink }}" alt="" class="global-bg">
+        <div class="global-bg-overlay"></div>
+    </div>
+    {{ end }}
     <header>
         <div class="container">
             <nav class="navbar">

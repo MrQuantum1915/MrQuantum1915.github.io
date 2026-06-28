@@ -26,8 +26,8 @@
     --text-secondary: #333333;
     --accent-primary: #FF5A00;
     --accent-hover: #E04A00;
-    --border-color: #E0E0E0;
-    --card-bg: #F5F5F5;
+    --border-color: rgba(224, 224, 224, 0.5); /* Softened borders */
+    --card-bg: rgba(255, 255, 255, 0.85); /* Semi-transparent */
 
     /* Typography */
     --font-heading: 'Orbitron', sans-serif;
@@ -43,8 +43,8 @@
     --text-secondary: #A0A0A0;
     --accent-primary: #FF5A00;
     --accent-hover: #FF3C00;
-    --border-color: #1A1A1A;
-    --card-bg: #050505;
+    --border-color: rgba(26, 26, 26, 0.6); /* Softened dark borders */
+    --card-bg: rgba(5, 5, 5, 0.85); /* Semi-transparent dark */
 }
 
 /* Text Selection - Light Theme */
@@ -75,7 +75,7 @@ html {
 
 
 body {
-    background-color: var(--bg-color);
+    background-color: transparent;
     color: var(--text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
@@ -451,7 +451,9 @@ footer {
     color: var(--text-secondary);
     border-top: 1px solid var(--accent-primary);
     font-size: 0.92rem;
-    background: linear-gradient(to bottom, color-mix(in srgb, var(--card-bg) 70%, transparent), transparent);
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
 footer .container {
@@ -1691,47 +1693,166 @@ main:has(.blog-container) {
    ========================================================================== */
 
 /* Hero Section */
+/* Global Background styles */
+.global-bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Behind all content */
+    overflow: hidden;
+    pointer-events: none;
+    background-color: var(--bg-color); /* Respect theme */
+    transition: background-color 0.4s ease;
+}
+
+/* Base Light Mode image */
+.global-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.85; /* Vibrant backdrop in light mode */
+    animation: cinematic-pan 6s ease-in-out infinite alternate;
+}
+
+/* Dark Mode overrides */
+[data-theme="dark"] .global-bg {
+    opacity: 0.50;
+    mix-blend-mode: lighten;
+}
+
+/* Light Mode Overlay - Premium Frosted Glass */
+.global-bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 135deg linear gradient simulating light reflection on frosted glass */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.75) 100%);
+    backdrop-filter: blur(5px) saturate(190%);
+    -webkit-backdrop-filter: blur(5px) saturate(190%);
+    z-index: 2;
+}
+
+/* Dark Mode Overlay - Just a subtle top dark gradient for navbar readability */
+[data-theme="dark"] .global-bg-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 150px);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* Hero Section */
 .home-hero {
-    min-height: 85vh;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 4rem 0;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent; /* Transparent to let global bg show */
+    margin-top: -80px; /* Offset the 80px container top margin so it goes under the header */
+    padding-top: calc(4rem + 80px); /* Adjust padding so content isn't under header */
+}
+
+@keyframes cinematic-pan {
+    0% { transform: scale(1.02) translate(0, 0); }
+    100% { transform: scale(1.08) translate(-1%, 1%); }
 }
 
 .home-hero-wrapper {
     margin-bottom: 2rem;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .home-hero-title {
-    font-size: clamp(3rem, 9vw, 6.5rem);
+    font-size: clamp(3rem, 8vw, 6rem);
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    line-height: 1.05;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    text-shadow: 0 0 40px rgba(255, 90, 0, 0.15);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--text-primary);
+    text-shadow: none;
 }
 
-.home-hero-badge {
-    display: inline-block;
-    padding: 0.6rem 1.2rem;
-    border: 1px solid var(--accent-primary);
-    color: var(--accent-primary);
+[data-theme="dark"] .home-hero-title {
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+}
+
+.home-hero-identity {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
     font-family: var(--font-mono);
     font-size: 0.9rem;
-    margin-bottom: 2.5rem;
-    letter-spacing: 0.15em;
-    background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
+    letter-spacing: 0.25em;
+    color: var(--accent-primary);
 }
 
-.home-hero-badge-bold {
-    font-weight: bold;
-    color: var(--text-primary);
+.identity-line {
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(90deg, transparent, var(--accent-primary));
+}
+
+.identity-line:last-child {
+    background: linear-gradient(90deg, var(--accent-primary), transparent);
+}
+
+.identity-content {
+    background: rgba(255, 255, 255, 0.70);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.6rem 1.5rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .identity-content {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 90, 0, 0.35);
+    box-shadow: 0 0 25px rgba(255, 90, 0, 0.15);
+}
+
+.identity-prefix {
+    color: var(--text-secondary);
+    opacity: 0.75;
+}
+
+.identity-username {
+    color: var(--accent-primary);
+    font-weight: 700;
+}
+
+[data-theme="dark"] .identity-username {
+    color: var(--accent-primary);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Card glassmorphism enhancements */
+.about-card, .project-card, .tech-card, .blog-card, .portals-card, .domain-card {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 /* About Section */
@@ -2160,4 +2281,30 @@ main:has(.blog-container) {
 
 .connect-btn-arrow {
     color: var(--bg-color);
+}
+
+/* ==========================================================================
+   Page-Specific Background & Glass Modifiers
+   ========================================================================== */
+
+/* Disable global space background on individual blog pages (use standard theme bg) */
+body.single-page.type-blogs {
+    background-color: var(--bg-color) !important;
+}
+body.single-page.type-blogs .global-bg-container {
+    display: none !important;
+}
+
+/* Outer Blog list page: Darker overlay in dark theme, whiter frosted sheet in light theme */
+[data-theme="dark"] body.list-page.type-blogs .global-bg-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.85) 100%) !important;
+}
+[data-theme="dark"] body.list-page.type-blogs .global-bg {
+    opacity: 0.95 !important; /* Heavily dim galaxies for reading list readability */
+}
+
+body.list-page.type-blogs .global-bg-overlay {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.90) 100%) !important;
+    backdrop-filter: blur(35px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(35px) saturate(200%) !important;
 }
