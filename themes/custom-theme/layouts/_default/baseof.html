@@ -41,7 +41,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 
-    {{ $favicon := resources.Get "logo.png" }}
+    {{ $favicon := resources.Get "MQ.png" }}
     {{ if $favicon }}
     <link rel="icon" href="{{ $favicon.RelPermalink }}" type="image/png">
     {{ end }}
@@ -79,7 +79,7 @@
                         <a href="https://github.com/MrQuantum1915" target="_blank" class="nav-link">GitHub</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://drive.google.com/file/d/1iiBOmdSqrPHaDZSEOIOCK7bx-adPTgi-/view?usp=sharing" target="_blank" class="nav-link" style="color: var(--accent-primary);">Resume</a>
+                        <a href="https://drive.google.com/file/d/1oJeixEtKehisoca_wBEpqIN7Zhj9JZTU/view?usp=sharing" target="_blank" class="nav-link" style="color: var(--accent-primary);">Resume</a>
                     </li>
                     <li class="nav-item">
                         <button id="theme-toggle" aria-label="Toggle Theme">
@@ -106,12 +106,23 @@
     </main>
 
     <footer>
-        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
             
             <div class="footer-head">
-                <h2>Mr.Quantum_1915</h2>
-                <p>The Universe is the ultimate OS, I am just a qubit collapsing its wave function</p> 
-                <p>And experiencing its own source code!</p>
+                {{ $logo := resources.Get "MQ.png" }}
+                {{ if $logo }}
+                <div class="footer-logo-wrapper" style="--logo-url: url('{{ $logo.RelPermalink }}');">
+                    <a href="{{ .Site.Home.RelPermalink }}" class="footer-logo-link" aria-label="Go to home">
+                        <img src="{{ $logo.RelPermalink }}" alt="Mr.Quantum Logo" class="footer-logo">
+                    </a>
+                </div>
+                {{ end }}
+                <div class="footer-info">
+                    <h2>Mr.Quantum_1915</h2>
+                    <p>The Universe is the ultimate OS,</p>
+                    <p>I am just a qubit collapsing its wave function</p> 
+                    <p>And experiencing its own source code!</p>
+                </div>
             </div>
 
             <div class="footer-links">

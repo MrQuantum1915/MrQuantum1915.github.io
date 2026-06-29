@@ -445,8 +445,8 @@ header.scrolled {
 
 
 footer {
-    margin-top: 5rem;
-    padding: 3.25rem 0 2.6rem;
+    margin-top: 4rem;
+    padding: 1.75rem 0 1.5rem;
     text-align: center;
     color: var(--text-secondary);
     border-top: 1px solid var(--accent-primary);
@@ -469,21 +469,182 @@ footer p {
 }
 
 .footer-head {
-    text-align: center;
-    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3.5rem;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
 }
 
-.footer-head h2 {
+.footer-logo-wrapper {
+    position: relative;
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.footer-logo-link {
+    display: block;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 500px;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+}
+
+.footer-logo {
+    display: block;
+    width: 100%;
+    height: 500px;
+    margin-top: -85px;
+    object-fit: contain;
+    filter: invert(1);
+    
+    /* Transparent background masking (using luminance to mask out the image's background) */
+    mask-image: var(--logo-url);
+    -webkit-mask-image: var(--logo-url);
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-mode: luminance;
+    -webkit-mask-mode: luminance;
+    mask-source-type: luminance;
+    -webkit-mask-source-type: luminance;
+    
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Dark mode image behavior - normal white text on transparent background */
+html[data-theme="dark"] .footer-logo {
+    filter: none;
+}
+
+.footer-logo-link:hover .footer-logo {
+    transform: translateY(1px) scale(1.02);
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between; /* Spreads items vertically to cover top and bottom edges */
+    height: 160px; /* Visually matches the height of the MQ letters shape */
+    margin-top: 50px; /* Aligns the top line of text with the top of the logo letters */
+    flex-grow: 1;
+}
+
+.footer-info h2 {
     font-family: var(--font-mono);
-    font-size: 1.5rem;
+    font-size: 2rem; /* Sizable, elegant header to match the large logo */
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    margin: 0 0 0 -30px; /* Subtle offset to match top curve of Q */
     text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: left;
+    white-space: nowrap;
+    line-height: 1.1;
 }
 
-.footer-head p {
-    font-size: 0.95rem;
+.footer-info p:nth-of-type(1) {
+    font-size: 1.05rem; /* Slightly larger text size to fill vertical space */
     color: var(--text-secondary);
+    margin: 0 0 0 -15px; /* Subtle offset next to upper-middle curve of Q */
+    line-height: 1.2;
+    text-align: left;
+}
+
+.footer-info p:nth-of-type(2) {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin: 0 0 0 -5px; /* Subtle offset next to widest center point of Q */
+    line-height: 1.2;
+    text-align: left;
+}
+
+.footer-info p:nth-of-type(3) {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin: 0 0 0 -22px; /* Subtle offset next to bottom curve of Q */
+    line-height: 1.2;
+    text-align: left;
+}
+
+@media (max-width: 992px) {
+    .footer-logo-wrapper {
+        width: 400px;
+        height: 240px;
+    }
+    .footer-logo-link {
+        height: 400px;
+    }
+    .footer-logo {
+        height: 400px;
+        margin-top: -80px;
+    }
+    .footer-info {
+        height: 176px; /* 220px * 0.8 */
+        margin-top: 32px; /* 40px * 0.8 */
+    }
+    .footer-info h2 {
+        font-size: 1.6rem;
+        margin-left: -24px;
+    }
+    .footer-info p:nth-of-type(1) {
+        font-size: 0.95rem;
+        margin-left: -12px;
+    }
+    .footer-info p:nth-of-type(2) {
+        font-size: 0.95rem;
+        margin-left: -4px;
+    }
+    .footer-info p:nth-of-type(3) {
+        font-size: 0.95rem;
+        margin-left: -18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-head {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-logo-wrapper {
+        margin: 0 auto 0.5rem auto;
+        width: 320px;
+        height: 180px;
+    }
+    .footer-logo-link {
+        height: 320px;
+    }
+    .footer-logo {
+        height: 320px;
+        margin-top: -70px;
+    }
+    .footer-info {
+        height: auto;
+        margin-top: 0;
+        align-items: center;
+        text-align: center;
+        justify-content: flex-start;
+    }
+    .footer-info h2 {
+        margin-left: 0;
+        text-align: center;
+    }
+    .footer-info p:nth-of-type(1),
+    .footer-info p:nth-of-type(2),
+    .footer-info p:nth-of-type(3) {
+        margin-left: 0;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
 }
 
 .footer-links {

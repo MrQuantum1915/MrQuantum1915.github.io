@@ -22,7 +22,7 @@ enableRobotsTXT = true
 
 [params]
     description = "Darshan Patel (Mr.Quantum_1915) - Computer Science polymath exploring the intersections of AI/ML, Quantum Computing, and Full Stack Engineering. Dive into my technical blogs, projects, and competitive programming insights."
-    images = ["/logo.png"]
+    images = ["/MQ.png"]
 
 [menus]
   [[menus.main]]
