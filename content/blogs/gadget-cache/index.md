@@ -1,7 +1,7 @@
 ---
 title: "Caching ROP Gadgets in C"
 date: 2026-05-27
-draft: false
+draft: true
 image: "cover.png"
 description: "Full technical insights on implementation of gadget search cache."
 ---
@@ -109,6 +109,3 @@ Have a nice day (or night) (>.<)
 ## References
 
 1. [Implementation of Gadget Cache - Pull Request](https://github.com/rizinorg/rizin/pull/6328)
-
-==**Also code blocks does not look good in dark mode (inline atleast!)**==
-==***next- Why LLMs output chinese tokens sometimes? add screenshot too==***
