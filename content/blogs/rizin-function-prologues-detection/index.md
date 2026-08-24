@@ -6,6 +6,10 @@ image: "cover.png"
 description: "GSoC 2026: Function Prologues Detection Plugin for Rizin"
 ---
 
+TODO: have to write more things yet (will be complete in 3-4 hours)
+
+GSoC 2026: Function Prologues Generation Plugin for Rizin
+
 In context of Rizin, _Prelude_ and _Prologue_ are used interchangebly. Although Prologue is the more widely used term generally. Hence I have used _Prologues_ terminology for the Plugin and the legacy naming of analysis system (analyze preludes) is kept as it is.
 
 ## The problem
