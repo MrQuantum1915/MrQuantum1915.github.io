@@ -110,15 +110,15 @@ There are 3 modes of extracting prologues in rizin session.
 - `pga` : generate prologoues from all the open binaries in the session.
 - `pgd` : generate prologues using all the binaries from a directory (batch processing). Opens and closes one file at a time.
 
-Rizin did not have a prefix tree library till now. Implemented **Generic** and complete `RzTrie` library, for prefix trees with all major APIs and almost 100% unit testing coverage.
+Rizin did not have a prefix tree library until now. Implemented **Generic** and complete `RzTrie` library, for prefix trees with all major APIs and almost 100% unit testing coverage.
 
 <!-- there is rz_prologues APIs available to be used anywhere -->
 
-
+Earlier in the coding period I had designed the plugin with a Persistent state design where the prologue trie, prologues list, architecture info persisted in the rizin session using Plugin context. But this design made the plugin complex to use for a normal user. As suggested by mentors to make user facing part simple and follow KISS design philosophy (Keep it simple stupid), I shifted to a Ephemeral Design (one shot and few commands) by automating whole pipeline and removing persistency (for rizin session cmds).
 ![Old discarded Persistent Session System Design](assets/old_session_architecture.png)
 ![New Ephemeral System Design]()
 
-There has been changes in the core prelude analysis/search too.
+[TODO:] There has been changes in the core prelude analysis/search too.
 
 ## Left to do and future scope
 ### Left to do
