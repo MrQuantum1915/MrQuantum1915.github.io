@@ -87,22 +87,51 @@ Shanon Entropy is good metric for uncertainity, high uncertainty means the bit i
 
 Let entropy Threshold be $E_c$. If the $EOS(node) > E_c$, we declare the bit at next depth (`d+1`) as wildcard (`mask[d+1]=0`) for the current branch of prologue, where `d` is the depth of node $n$.
 
-Wildcarding the bit implictly means that we now need merge the subtrees at that node `merge(src,dst)`. Because without merging the Entropy calculation for the node in levels below the current one will be wrong. Hence after wildcarding decision we need to merge the the subtrees (adding the `hit_cnt` of the nodes being merged). 
+Wildcarding the bit implictly means that we now need merge the subtrees (merging same nodes recursively) at that node `merge(src,dst)`. Because without merging the Entropy calculation for the node in levels below the current one will be wrong. Hence after wildcarding decision we need to merge the the subtrees (adding the `hit_cnt` of the nodes being merged). 
 $$\therefore c_0.\text{hit\_cnt} \leftarrow (c_0.\text{hit\_cnt} + c_1.\text{hit\_cnt})$$
 
 During the DFS traversal, upon reaching a terminal node (`is_end`), the active bit and mask buffers are exported as an `RzPrologue` pair.
 
 ![Mathematical Flowchart](mathematical_flowchart)
-![An Example](Example) 
  <!-- Good example showcasing merging too  -->
+![An Example](Example) 
 
 ### The system design of the plugin and utility
+
+This plugin is a `core` (RzCore) plugin as we need to have command suite in a normal interactive rizin session too.
+There are two modes for using the plugin:
+1. Using commands in interactive rizin session
+2. Using `rz-prologues` command line utility (`binrz`)
+
+The cmdline utility is just a wrapper around the APIs provided by our RzCore plugin. The plugin code is coded as modular as possible with a relevant API surface for any power user needing fine grained control over the whole pipeline.
+
+There are 3 modes of extracting prologues in rizin session.
+- `pg` : generate prologues from current **open** binary in session.
+- `pga` : generate prologoues from all the open binaries in the session.
+- `pgd` : generate prologues using all the binaries from a directory (batch processing). Opens and closes one file at a time.
+
+Rizin did not have a prefix tree library till now. Implemented **Generic** and complete `RzTrie` library, for prefix trees with all major APIs and almost 100% unit testing coverage.
+
+<!-- there is rz_prologues APIs available to be used anywhere -->
+
 
 ![Old discarded Persistent Session System Design](assets/old_session_architecture.png)
 ![New Ephemeral System Design]()
 
-## Current State
-## Left to do (future)
+There has been changes in the core prelude analysis/search too.
+
+## Left to do and future scope
+### Left to do
+- [ ] Final Review process and future changes based on review.
+- [ ] Set optimal default values for `RZ_PROLOGUE_DEFAULT_LEN` and `RZ_PROLOGUE_DEFAULT_ENTROPY_THRESHOLD` based on experiments.
+- [ ] A testing benchmark to evaluate prologues generated
+
+### Future scope
+- Based on how this plugin performs, explore other algorithms or heuristics if better than current one.
+- There's an idea of a probabilistic approach using the generated trie from good binaries, to analyse a target binary for function detection. By traversing root-to-leaf paths, the engine can compute a likelihood score or confidence metric for any memory offset, quantifying the probability that a given byte sequence represents a valid function entry point.
+- Optimise code if possible
+- Can add more APIs for Power users for more fine grained control over the whole pipeline and intermediate states.
+
 ## Links to relevant work
 - [Prefix Tree (Trie) Library](https://github.com/rizinorg/rizin/pull/6638) #Merged
 - [Prologues Generation Plugin](https://github.com/rizinorg/rizin/pull/6514) #Under Review
